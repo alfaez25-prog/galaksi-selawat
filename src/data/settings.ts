@@ -1,7 +1,9 @@
-import type { TeacherSettings } from './types'
+import type { GameSettings } from './types'
 import { DEFAULT_UNITS } from './units'
+import logoSekolah from '../assets/logo-sekolah.png?inline'
 
-export const CLASSROOM_URL = 'https://classroom.google.com/'
+/** Pautan kelas Pendidikan Islam di Google Classroom */
+export const CLASSROOM_URL = 'https://classroom.google.com/c/Nzg4MTkwMzYyNjg4?cjc=s4ii5xii'
 
 export const SUBMISSION_TEXT =
   'Selepas tamat permainan, muat turun sijil pencapaian anda. Kemudian buka Google Classroom, pilih tugasan Pendidikan Islam, lampirkan sijil dan tekan Serahkan.'
@@ -18,11 +20,11 @@ export const SUBMISSION_STEPS = [
   'Pastikan status tugasan telah diserahkan.',
 ]
 
-export function createDefaultSettings(): TeacherSettings {
+export function createDefaultSettings(): GameSettings {
   return {
     version: 1,
     schoolName: 'SK BUKIT MINYAK',
-    schoolLogo: null,
+    schoolLogo: logoSekolah,
     classes: ['4 Amanah', '4 Bestari', '4 Cemerlang', '4 Dedikasi'],
     classroomUrl: CLASSROOM_URL,
     submissionText: SUBMISSION_TEXT,
@@ -38,6 +40,5 @@ export function createDefaultSettings(): TeacherSettings {
       lafazDistractors: [...u.lafazDistractors],
       meaningDistractors: [...u.meaningDistractors],
     })),
-    teacherPin: '1234',
   }
 }

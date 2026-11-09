@@ -48,17 +48,15 @@ src/lib/progress.ts          Kunci/aliran, penguasaan, lencana
 src/lib/storage.ts           localStorage (sesi per murid, tetapan guru, import/eksport JSON)
 src/lib/certificateExport.ts html-to-image → PNG 3508×2480, jsPDF → A4 landskap
 src/components/              UI dikongsi, papan susunan (seret + ketik), sijil
-src/screens/                 Setiap skrin permainan + Mod Guru
+src/screens/                 Setiap skrin permainan
 e2e/playthrough.mjs          Ujian E2E penuh (desktop + iPhone 13)
 ```
 
-## Mod Guru
+## Menukar kandungan
 
-Butang "Mod Guru" di skrin pembukaan (PIN lalai `1234`). Tetapan: nama & logo sekolah, senarai kelas,
-teks Arab, maksud, bank soalan (mod lafaz, perkataan disembunyikan, distraktor, petunjuk), pautan Classroom,
-arahan penghantaran, tetapan sijil, import/eksport JSON, rekod murid pada peranti.
-
-> Tetapan guru disimpan setempat dalam pelayar (localStorage). Ia **bukan** kawalan keselamatan berpusat.
+Tiada Mod Guru dalam aplikasi. Untuk menukar nama sekolah, senarai kelas, pautan Classroom, arahan
+penghantaran atau tetapan sijil, sunting `src/data/settings.ts`. Untuk lafaz, maksud, distraktor dan petunjuk,
+sunting `src/data/units.ts`. Push ke `main` akan menerbitkan semula laman secara automatik.
 
 ## Nota reka bentuk
 

@@ -1,5 +1,5 @@
 import { motion } from 'motion/react'
-import { Rocket, Settings, Volume2, VolumeX } from 'lucide-react'
+import { Rocket, Volume2, VolumeX } from 'lucide-react'
 import { useGame } from '../game'
 import { ClassroomGuide } from '../components/ClassroomGuide'
 import { Arabic, StarShape } from '../components/ui'
@@ -20,12 +20,9 @@ export function OpeningScreen({
         <button type="button" onClick={onToggleMute} className="btn-ghost rounded-full p-2" aria-label={muted ? 'Hidupkan bunyi' : 'Senyapkan bunyi'}>
           {muted ? <VolumeX size={18} /> : <Volume2 size={18} />}
         </button>
-        <button type="button" onClick={() => go({ name: 'teacher' })} className="btn-ghost flex items-center gap-1 rounded-full px-3 py-2 text-sm">
-          <Settings size={16} aria-hidden /> Mod Guru
-        </button>
       </div>
 
-      {settings.schoolLogo && <img src={settings.schoolLogo} alt={`Logo ${settings.schoolName}`} className="h-16 w-16 object-contain" />}
+      {settings.schoolLogo && <img src={settings.schoolLogo} alt={`Logo ${settings.schoolName}`} className="h-24 w-24 object-contain drop-shadow-[0_0_12px_rgba(255,255,255,.25)]" />}
       <p className="text-sm font-bold tracking-[0.3em] text-silver-400">{settings.schoolName}</p>
 
       {/* Galaksi animasi */}

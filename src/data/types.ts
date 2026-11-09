@@ -33,7 +33,7 @@ export interface CertificateSettings {
   signatureRole: string
 }
 
-export interface TeacherSettings {
+export interface GameSettings {
   version: 1
   schoolName: string
   schoolLogo: string | null
@@ -43,5 +43,4 @@ export interface TeacherSettings {
   submissionSteps: string[]
   certificate: CertificateSettings
   units: UnitData[]
-  teacherPin: string
 }

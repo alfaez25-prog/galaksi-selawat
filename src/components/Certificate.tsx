@@ -1,5 +1,5 @@
 import { forwardRef } from 'react'
-import type { TeacherSettings } from '../data/types'
+import type { GameSettings } from '../data/types'
 import type { Badge } from '../lib/progress'
 import { CERT_H, CERT_W, formatDateMs, nameFontSize } from '../lib/certificate'
 
@@ -30,7 +30,7 @@ function Star({ x, y, s, c = '#f5c542' }: { x: number; y: number; s: number; c?:
 }
 
 /** Sijil direka pada 1123×794 px (A4 landskap @96dpi). Dieksport ke PNG 3508×2480 & PDF A4. */
-export const Certificate = forwardRef<HTMLDivElement, { data: CertificateData; settings: TeacherSettings }>(function Certificate(
+export const Certificate = forwardRef<HTMLDivElement, { data: CertificateData; settings: GameSettings }>(function Certificate(
   { data, settings },
   ref,
 ) {
@@ -102,7 +102,7 @@ export const Certificate = forwardRef<HTMLDivElement, { data: CertificateData; s
         }}
       >
         {settings.schoolLogo ? (
-          <img src={settings.schoolLogo} alt="" style={{ height: 64, width: 64, objectFit: 'contain', marginBottom: 4 }} />
+          <img src={settings.schoolLogo} alt="" style={{ height: 78, width: 78, objectFit: 'contain', marginBottom: 2 }} />
         ) : null}
         <div style={{ fontFamily: "'Cinzel', serif", fontWeight: 800, fontSize: 26, letterSpacing: 6, color: '#1d3a8a' }} data-testid="cert-school">
           {settings.schoolName}

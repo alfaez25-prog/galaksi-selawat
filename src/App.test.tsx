@@ -59,7 +59,7 @@ describe('Google Classroom', () => {
   it('butang membuka pautan betul di tab baharu', async () => {
     render(<App />)
     const link = screen.getByTestId('classroom-button')
-    expect(link).toHaveAttribute('href', 'https://classroom.google.com/')
+    expect(link).toHaveAttribute('href', 'https://classroom.google.com/c/Nzg4MTkwMzYyNjg4?cjc=s4ii5xii')
     expect(link).toHaveAttribute('target', '_blank')
     expect(link.getAttribute('rel')).toContain('noopener')
     expect(screen.getByTestId('classroom-text')).toHaveTextContent('lampirkan sijil dan tekan Serahkan')

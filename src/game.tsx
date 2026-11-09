@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext } from 'react'
-import type { TeacherSettings } from './data/types'
+import type { GameSettings } from './data/types'
 import type { ChallengeCatalog } from './lib/challenges'
 import type { Progress, Session } from './lib/progress'
 import { makeResult, type ChallengeType } from './lib/scoring'
@@ -15,10 +15,9 @@ export type Screen =
   | { name: 'final' }
   | { name: 'results' }
   | { name: 'certificate' }
-  | { name: 'teacher' }
 
 export interface GameCtx {
-  settings: TeacherSettings
+  settings: GameSettings
   catalog: ChallengeCatalog
   session: Session | null
   setProgress: (fn: (p: Progress) => Progress) => void

@@ -43,7 +43,7 @@ async function play(label, contextOpts, { useDrag = false, wrongOnce = true } = 
 
   await page.goto(BASE)
   await shot('01-opening')
-  ok((await page.getByTestId('classroom-button').getAttribute('href')) === 'https://classroom.google.com/', 'Butang Classroom pada skrin mula → pautan betul')
+  ok((await page.getByTestId('classroom-button').getAttribute('href')) === 'https://classroom.google.com/c/Nzg4MTkwMzYyNjg4?cjc=s4ii5xii', 'Butang Classroom pada skrin mula → pautan betul')
   await page.getByTestId('opening-start').click()
 
   // Pendaftaran
@@ -215,12 +215,12 @@ async function play(label, contextOpts, { useDrag = false, wrongOnce = true } = 
   ok(pdf.subarray(0, 5).toString() === '%PDF-' && pdfStr.includes('%%EOF') && statSync(pdfPath).size > 50000, `PDF sah (${(pdf.length / 1e6).toFixed(2)} MB)`)
   ok(mb && Math.round(+mb[1]) === 842 && Math.round(+mb[2]) === 595, `PDF A4 landskap (MediaBox ${mb?.[1]}×${mb?.[2]} pt)`)
 
-  ok((await page.getByTestId('classroom-button').getAttribute('href')) === 'https://classroom.google.com/', 'Butang Classroom pada skrin tamat → pautan betul')
+  ok((await page.getByTestId('classroom-button').getAttribute('href')) === 'https://classroom.google.com/c/Nzg4MTkwMzYyNjg4?cjc=s4ii5xii', 'Butang Classroom pada skrin tamat → pautan betul')
   const [popup] = await Promise.all([ctx.waitForEvent('page', { timeout: 10000 }).catch(() => null), page.getByTestId('classroom-button').click()])
   ok(popup !== null, 'Butang Classroom membuka tab baharu')
   if (popup) {
     await popup.waitForLoadState().catch(() => {})
-    ok(popup.url() === 'https://classroom.google.com/', `Tab baharu menuju: ${popup.url()}`)
+    ok(popup.url() === 'https://classroom.google.com/c/Nzg4MTkwMzYyNjg4?cjc=s4ii5xii', `Tab baharu menuju: ${popup.url()}`)
     await popup.close()
   }
 

@@ -25,8 +25,6 @@ import {
 } from './progress'
 import { isRegistrationValid, validateClass, validateName } from './validation'
 import {
-  importSettingsJson,
-  exportSettingsJson,
   loadActiveSession,
   loadSessions,
   saveSession,
@@ -277,25 +275,6 @@ describe('Kemajuan disimpan (localStorage)', () => {
   })
 })
 
-/* ============ Mod guru ============ */
-describe('Import/Eksport JSON guru', () => {
-  it('eksport → import pulang-balik', () => {
-    const s = createDefaultSettings()
-    s.schoolName = 'SK UJIAN'
-    const r = importSettingsJson(exportSettingsJson(s))
-    expect(r.ok).toBe(true)
-    expect(r.settings?.schoolName).toBe('SK UJIAN')
-    expect(r.settings?.units).toHaveLength(15)
-  })
-  it('menolak JSON tidak sah atau unit rosak', () => {
-    expect(importSettingsJson('{bukan json').ok).toBe(false)
-    const s = createDefaultSettings()
-    s.units[1] = { ...s.units[1], lafazDistractors: ['عَلَيْكَ', 'x', 'y'] } // distraktor sama dengan jawapan
-    expect(importSettingsJson(JSON.stringify(s)).ok).toBe(false)
-    expect(importSettingsJson(JSON.stringify({ classroomUrl: 'http://contoh' })).ok).toBe(false)
-  })
-})
-
 /* ============ Sijil ============ */
 describe('Sijil', () => {
   it('saiz PNG 3508 × 2480', () => {
@@ -312,8 +291,8 @@ describe('Sijil', () => {
 
 /* ============ 15. Classroom ============ */
 describe('Google Classroom', () => {
-  it('pautan lalai betul', () => {
-    expect(CLASSROOM_URL).toBe('https://classroom.google.com/')
-    expect(createDefaultSettings().classroomUrl).toBe('https://classroom.google.com/')
+  it('pautan kelas Classroom betul', () => {
+    expect(CLASSROOM_URL).toBe('https://classroom.google.com/c/Nzg4MTkwMzYyNjg4?cjc=s4ii5xii')
+    expect(createDefaultSettings().classroomUrl).toBe('https://classroom.google.com/c/Nzg4MTkwMzYyNjg4?cjc=s4ii5xii')
   })
 })

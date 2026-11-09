@@ -128,7 +128,7 @@ export function buildCatalog(units: UnitData[]): ChallengeCatalog {
   }
 }
 
-/** Validasi data unit (digunakan oleh Mod Guru dan import JSON). */
+/** Validasi data unit (memastikan bank soalan lengkap & konsisten). */
 export function validateUnits(units: UnitData[]): string[] {
   const errors: string[] = []
   if (units.length !== 15) errors.push(`Mesti ada 15 unit (kini ${units.length}).`)

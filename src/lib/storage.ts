@@ -1,13 +1,9 @@
-import type { TeacherSettings, UnitData } from '../data/types'
-import { createDefaultSettings } from '../data/settings'
-import { validateUnits } from './challenges'
 import { emptyProgress, type Session, type Student } from './progress'
 
 const PREFIX = 'galaksi-selawat:v1:'
 export const KEYS = {
   active: PREFIX + 'active-session',
   sessions: PREFIX + 'sessions',
-  settings: PREFIX + 'teacher-settings',
   muted: PREFIX + 'muted',
 } as const
 
@@ -90,68 +86,6 @@ export function logout(): void {
   } catch {
     /* abaikan */
   }
-}
-
-export function loadSettings(): TeacherSettings {
-  const stored = read<Partial<TeacherSettings> | null>(KEYS.settings, null)
-  return mergeSettings(stored)
-}
-
-export function saveSettings(s: TeacherSettings): void {
-  write(KEYS.settings, s)
-}
-
-export function resetSettings(): TeacherSettings {
-  try {
-    localStorage.removeItem(KEYS.settings)
-  } catch {
-    /* abaikan */
-  }
-  return createDefaultSettings()
-}
-
-/** Gabung tetapan tersimpan dengan lalai; unit tidak sah → guna lalai. */
-export function mergeSettings(stored: Partial<TeacherSettings> | null): TeacherSettings {
-  const def = createDefaultSettings()
-  if (!stored || typeof stored !== 'object') return def
-  const units = Array.isArray(stored.units) ? (stored.units as UnitData[]) : def.units
-  return {
-    ...def,
-    ...stored,
-    version: 1,
-    certificate: { ...def.certificate, ...(stored.certificate ?? {}) },
-    classes: Array.isArray(stored.classes) ? stored.classes.map(String) : def.classes,
-    submissionSteps: Array.isArray(stored.submissionSteps) ? stored.submissionSteps.map(String) : def.submissionSteps,
-    units: validateUnits(units).length === 0 ? units : def.units,
-  }
-}
-
-export interface ImportResult {
-  ok: boolean
-  settings?: TeacherSettings
-  errors: string[]
-}
-
-export function importSettingsJson(text: string): ImportResult {
-  let parsed: unknown
-  try {
-    parsed = JSON.parse(text)
-  } catch {
-    return { ok: false, errors: ['Fail JSON tidak sah.'] }
-  }
-  if (!parsed || typeof parsed !== 'object') return { ok: false, errors: ['Struktur JSON tidak sah.'] }
-  const p = parsed as Partial<TeacherSettings>
-  if (p.units) {
-    const errs = validateUnits(p.units)
-    if (errs.length) return { ok: false, errors: errs }
-  }
-  if (p.classroomUrl && !/^https:\/\//.test(p.classroomUrl))
-    return { ok: false, errors: ['Pautan Classroom mesti bermula dengan https://'] }
-  return { ok: true, settings: mergeSettings(p), errors: [] }
-}
-
-export function exportSettingsJson(s: TeacherSettings): string {
-  return JSON.stringify(s, null, 2)
 }
 
 export function loadMuted(): boolean {

@@ -2,10 +2,10 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { GameContext, type GameCtx, type Screen } from './game'
 import { buildCatalog } from './lib/challenges'
-import { loadActiveSession, loadMuted, loadSettings, saveMuted, saveSession } from './lib/storage'
+import { loadActiveSession, loadMuted, saveMuted, saveSession } from './lib/storage'
+import { createDefaultSettings } from './data/settings'
 import { play, setMuted as setAudioMuted, type SoundName } from './lib/audio'
 import type { Progress, Session } from './lib/progress'
-import type { TeacherSettings } from './data/types'
 import { Starfield } from './components/ui'
 import { TopBar } from './components/TopBar'
 import { OpeningScreen } from './screens/OpeningScreen'
@@ -17,10 +17,9 @@ import { OrbitScreen } from './screens/OrbitScreen'
 import { FinalGalaxyScreen } from './screens/FinalGalaxyScreen'
 import { ResultsScreen } from './screens/ResultsScreen'
 import { CertificateScreen } from './screens/CertificateScreen'
-import { TeacherModeScreen } from './screens/TeacherModeScreen'
 
 export default function App() {
-  const [settings, setSettings] = useState<TeacherSettings>(() => loadSettings())
+  const [settings] = useState(createDefaultSettings)
   const [session, setSession] = useState<Session | null>(() => loadActiveSession())
   const [screen, setScreen] = useState<Screen>({ name: 'opening' })
   const [muted, setMuted] = useState<boolean>(() => loadMuted())
@@ -51,10 +50,10 @@ export default function App() {
   const ctx: GameCtx = { settings, catalog, session, setProgress, sfx, go }
 
   // Pengawal laluan: skrin permainan memerlukan sesi murid
-  const needsSession = !['opening', 'register', 'teacher'].includes(screen.name)
+  const needsSession = !['opening', 'register'].includes(screen.name)
   const effective: Screen = needsSession && !session ? { name: 'register' } : screen
 
-  const showBar = session && !['opening', 'register', 'teacher'].includes(effective.name)
+  const showBar = session && !['opening', 'register'].includes(effective.name)
 
   return (
     <GameContext.Provider value={ctx}>
@@ -88,12 +87,6 @@ export default function App() {
             {effective.name === 'final' && <FinalGalaxyScreen />}
             {effective.name === 'results' && <ResultsScreen />}
             {effective.name === 'certificate' && <CertificateScreen />}
-            {effective.name === 'teacher' && (
-              <TeacherModeScreen
-                onSave={(s) => setSettings(s)}
-                onExit={() => go({ name: 'opening' })}
-              />
-            )}
           </motion.main>
         </AnimatePresence>
         <footer className="mt-8 text-center text-xs text-silver-400/70">
