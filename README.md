@@ -2,6 +2,10 @@
 
 Permainan digital interaktif Pendidikan Islam Tahun 4 · SK BUKIT MINYAK · Bahasa Melayu.
 
+## Main dalam talian
+
+https://alfaez25-prog.github.io/galaksi-selawat/ (diterbitkan automatik oleh GitHub Actions setiap kali `main` dikemas kini).
+
 ## Cara menjalankan
 
 ```bash
