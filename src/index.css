@@ -1,0 +1,150 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-space-950: #050822;
+  --color-space-900: #0b1033;
+  --color-space-800: #131a4d;
+  --color-sapphire-700: #1d3a8a;
+  --color-sapphire-500: #2f6fe0;
+  --color-sapphire-300: #8fb4ff;
+  --color-violet-deep: #3b1e78;
+  --color-violet-glow: #7c4dff;
+  --color-gold-300: #ffe28a;
+  --color-gold-400: #f5c542;
+  --color-gold-600: #c9971c;
+  --color-silver-200: #e3e8f2;
+  --color-silver-400: #b8c1d6;
+  --font-display: 'Cinzel', 'Times New Roman', serif;
+  --font-body: 'Nunito', system-ui, sans-serif;
+  --font-arabic: 'Amiri', 'Traditional Arabic', 'Scheherazade New', serif;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: #f3f5ff;
+  background: radial-gradient(ellipse at 20% 0%, #24145c 0%, transparent 55%),
+    radial-gradient(ellipse at 90% 30%, #0f2f7a 0%, transparent 50%),
+    linear-gradient(180deg, #070b29 0%, #050822 100%);
+  background-attachment: fixed;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.arabic {
+  font-family: var(--font-arabic);
+  direction: rtl;
+  unicode-bidi: isolate;
+  line-height: 2.1;
+  font-feature-settings: 'kern', 'liga', 'calt';
+  letter-spacing: 0;
+}
+
+.glass {
+  background: linear-gradient(160deg, rgba(36, 44, 110, 0.72), rgba(20, 16, 60, 0.78));
+  border: 1px solid rgba(184, 193, 214, 0.22);
+  box-shadow: 0 10px 40px rgba(3, 6, 30, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+}
+
+.card-arabic {
+  background: linear-gradient(170deg, #fdfbf3, #f1ead2);
+  color: #1b1640;
+  border: 2px solid rgba(201, 151, 28, 0.55);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+.btn-gold {
+  background: linear-gradient(180deg, #ffe28a, #f5c542 45%, #c9971c);
+  color: #1b1640;
+  font-weight: 800;
+  box-shadow: 0 4px 0 #8a6510, 0 8px 24px rgba(245, 197, 66, 0.35);
+}
+.btn-gold:disabled {
+  filter: grayscale(0.85) brightness(0.7);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(184, 193, 214, 0.35);
+  color: #e3e8f2;
+  font-weight: 700;
+}
+.btn-ghost:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.12);
+}
+.btn-ghost:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.title-glow {
+  text-shadow: 0 0 18px rgba(245, 197, 66, 0.55), 0 0 2px rgba(255, 255, 255, 0.6);
+}
+
+:focus-visible {
+  outline: 3px solid #ffe28a;
+  outline-offset: 2px;
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin-slow {
+  animation: spin-slow 60s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ===== Cetak sijil ===== */
+@page {
+  size: A4 landscape;
+  margin: 0;
+}
+@media print {
+  body {
+    background: #fff !important;
+  }
+  body * {
+    visibility: hidden !important;
+  }
+  #certificate-print-root,
+  #certificate-print-root * {
+    visibility: visible !important;
+  }
+  #certificate-print-root {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 297mm !important;
+    height: 210mm !important;
+    overflow: hidden !important;
+  }
+  #certificate-print-root .cert-scale {
+    transform: none !important;
+  }
+}
